@@ -59,7 +59,7 @@ app.get("/url/emotion", (req,res) => {
      naturalLanguageUnderstanding.analyze(analyzeParams)
      .then(analysisResults => {
         //Print the JSON returned by NLU instance as a formatted string
-        console.log(JSON.stringify(analysisResults.result.keywords[0].emotion,null,2));
+        //console.log(JSON.stringify(analysisResults.result.keywords[0].emotion,null,2));
         //Please refer to the image to see the order of retrieval
         return res.send(analysisResults.result.keywords[0].emotion,null,2);
      })
@@ -70,66 +70,61 @@ app.get("/url/emotion", (req,res) => {
 
 //The endpoint for the webserver ending with /url/sentiment
 app.get("/url/sentiment", (req,res) => {
-        app.get("/url/sentiment", (req,res) => {
-        let urlToAnalyze = req.query.url
-        const analyzeParams = 
-        {
-            "url": urlToAnalyze,
-            "features": {
-                "keywords": {
-                    "sentiment": true,
-                    "limit": 1
-                }
+    let urlToAnalyze = req.query.url
+    const analyzeParams = 
+    {
+        "url": urlToAnalyze,
+        "features": {
+            "keywords": {
+                "sentiment": true,
+                "limit": 1
             }
         }
+    }
 
-        const naturalLanguageUnderstanding = getNLUInstance();
+    const naturalLanguageUnderstanding = getNLUInstance();
 
-        naturalLanguageUnderstanding.analyze(analyzeParams)
-        .then(analysisResults => {
-            //Retrieve the sentiment and return it as a formatted string
+    naturalLanguageUnderstanding.analyze(analyzeParams)
+    .then(analysisResults => {
+        //Retrieve the sentiment and return it as a formatted string
 
-            return res.send(analysisResults.result.keywords[0].sentiment,null,2);
-        })
-        .catch(err => {
-            return res.send("Could not do desired operation "+err);
-        });
+        return res.send(analysisResults.result.keywords[0].sentiment,null,2);
+    })
+    .catch(err => {
+        return res.send("Could not do desired operation "+err);
     });
-    return res.send("url sentiment for "+req.query.url);
 });
+
+
 
 //The endpoint for the webserver ending with /text/emotion
 app.get("/text/emotion", (req,res) => {
-        app.get("/text/emotion", (req,res) => {
-        let textToAnalyze = req.query.text
-        const analyzeParams = 
-        {
-            "text": textToAnalyze,
-            "features": {
-                "keywords": {
-                    "emotion": true,
-                    "limit": 1
-                }
+    let textToAnalyze = req.query.text
+    const analyzeParams = 
+    {
+        "text": textToAnalyze,
+        "features": {
+            "keywords": {
+                "emotion": true,
+                "limit": 1
             }
         }
+    }
 
-        const naturalLanguageUnderstanding = getNLUInstance();
+    const naturalLanguageUnderstanding = getNLUInstance();
 
-        naturalLanguageUnderstanding.analyze(analyzeParams)
-        .then(analysisResults => {
-            //Retrieve the emotion and return it as a formatted string
+    naturalLanguageUnderstanding.analyze(analyzeParams)
+    .then(analysisResults => {
+        //Retrieve the emotion and return it as a formatted string
 
-            return res.send(analysisResults.result.keywords[0].emotion,null,2);
-        })
-        .catch(err => {
-            return res.send("Could not do desired operation "+err);
-        });
+        return res.send(analysisResults.result.keywords[0].emotion,null,2);
+    })
+    .catch(err => {
+        return res.send("Could not do desired operation "+err);
     });
-    return res.send({"happy":"10","sad":"90"});
 });
 
-app.get("/text/sentiment", (req,res) => {
-        app.get("/text/sentiment", (req,res) => {
+    app.get("/text/sentiment", (req,res) => {
         let textToAnalyze = req.query.text
         const analyzeParams = 
         {
@@ -154,8 +149,6 @@ app.get("/text/sentiment", (req,res) => {
             return res.send("Could not do desired operation "+err);
         });
     });
-    return res.send("text sentiment for "+req.query.text);
-});
 
 let server = app.listen(8080, () => {
     console.log('Listening', server.address().port)
