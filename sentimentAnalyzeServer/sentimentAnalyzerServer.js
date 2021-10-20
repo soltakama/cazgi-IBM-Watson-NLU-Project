@@ -1,6 +1,5 @@
 const express = require('express');
 const app = new express();
-//test!
 
 /*This tells the server to use the client 
 folder for all static resources*/
